@@ -24,7 +24,8 @@ class ProductResource extends JsonResource
         $types = $this->whenLoaded('types');
         $sizes = $this->whenLoaded('sizes');
         $reviews = $this->whenLoaded('reviews');
-        $rating = round(($reviews->sum('star') / $reviews->count()), 2);
+        $total_review = $reviews->count();
+        $rating = $total_review > 0 ? round(($reviews->sum('star') / $reviews->count()), 2) : 0;
 
         return [
             'id' => $this->id,
@@ -34,6 +35,7 @@ class ProductResource extends JsonResource
             'types' => TypeResource::collection($types), 
             'sizes' => SizeResource::collection($sizes),
             'description' => $this->description,
+            'total_review' => $total_review,
             'rating' => $reviews->count() > 0 ? $rating : 'Không có đánh giá nào.',
             'images' => ImageResource::collection($images),
             'stock' => $this->stock == 0 ? 'Hết hàng' : $this->stock,
