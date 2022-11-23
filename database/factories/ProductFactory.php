@@ -16,7 +16,9 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'manufacture_id' => Manufacture::factory(),
+            'manufacture_id' => function () {
+                return Manufacture::all()->random();
+            },
             'name' => $this->faker->name(),
             'description' => $this->faker->sentence(2),
             'stock' => $this->faker->numberBetween(0, 1000),

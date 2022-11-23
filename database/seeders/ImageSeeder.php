@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\Manufacture;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
-class ManufactureSeeder extends Seeder
+class ImageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +16,6 @@ class ManufactureSeeder extends Seeder
      */
     public function run()
     {
-        Manufacture::factory(100)
-            ->hasImage(1)
-            ->create();
+        
     }
 }

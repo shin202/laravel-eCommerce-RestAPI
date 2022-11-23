@@ -14,7 +14,13 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory(10)
+        Product::factory(100)
+            ->hasCategories(2)
+            ->hasColors(4)
+            ->hasTypes(3)
+            ->hasSizes(10)
+            ->hasImages(3)
+            ->hasReviews(100)
             ->create();
     }
 }
