@@ -10,7 +10,6 @@ use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Traits\ApiResponser;
 use App\Services\ProductService;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
