@@ -25,7 +25,7 @@ class ProductService
     {
         $data = [];
         foreach ($images as $image) {
-            $imagePath = $this->firebaseStorage->storeImage($image, 'products', $foldername);
+            $imagePath = $this->firebaseStorage->storeImage($image, 'product', $foldername);
             $imageData = $this->firebaseStorage->fetchImage($imagePath);
 
             $data[] = $imageData;
