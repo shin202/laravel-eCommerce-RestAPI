@@ -10,7 +10,6 @@ use App\Models\Product;
 use App\Traits\ApiResponser;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class ImageController extends Controller
 {
@@ -38,9 +37,8 @@ class ImageController extends Controller
     public function index(Request $request)
     {
         $images = $this->image->filter($request);
-        $message = 'Lấy danh sách ảnh thành công.';
 
-        return $this->successReponse($images, $message);
+        return $images;
     }
 
     /**

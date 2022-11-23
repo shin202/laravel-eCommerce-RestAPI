@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\Image\ImageCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,13 @@ class Image extends Model
     public function scopeFilter($query, $request) {
         if (!$request->has('filter')) return $this->all()->groupBy('imageable_type');
 
-        return $query->where('imageable_type', $request->filter)->get();
+        $images = $query->where('imageable_type', $request->filter)->paginate(10)->appends($request->query());
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Lấy danh sách ảnh thành công.',
+        ];
+
+        return (new ImageCollection($images))->additional($data)->response();
     }
 }
