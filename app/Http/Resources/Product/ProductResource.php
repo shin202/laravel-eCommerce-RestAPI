@@ -34,6 +34,7 @@ class ProductResource extends JsonResource
             'categories' => CategoryResource::collection($categories),
             'types' => TypeResource::collection($types), 
             'sizes' => SizeResource::collection($sizes),
+            'colors' => ColorResource::collection($colors),
             'description' => $this->description,
             'total_review' => $total_review,
             'rating' => $reviews->count() > 0 ? $rating : 'Không có đánh giá nào.',

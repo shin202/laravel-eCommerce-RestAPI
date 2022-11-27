@@ -4,7 +4,7 @@ namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SizeTypeResource extends JsonResource
+class ColorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,10 @@ class SizeTypeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->pivot->size_id,
-            'name' => $this->name,
+            'id' => $this->id,
+            'color' => $this->color,
+            'created_at' => $this->created_at->format('d.m.Y'),
+            'updated_at' => $this->updated_at->format('d.m.Y'),
         ];
     }
 }

@@ -15,11 +15,15 @@ class TypeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $sizes = $this->whenLoaded('sizes');
+
         return [
             'id' => $this->id,
             'type' => ProductTypeEnum::coerce($this->type)->key,
             'slug' => $this->slug,
-            'sizes' => SizeTypeResource::collection($this->sizes),
+            'sizes' => SizeResource::collection($sizes),
+            'created_at' => $this->created_at->format('d.m.Y'),
+            'updated_at' => $this->updated_at->format('d.m.Y'),
         ];
     }
 }
