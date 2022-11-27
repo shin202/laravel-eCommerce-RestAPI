@@ -4,11 +4,11 @@ namespace App\Policies;
 
 use App\Enums\UserPermissionsEnum;
 use App\Enums\UserRoleEnum;
-use App\Models\Product;
+use App\Models\Manufacture;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class ManufacturePolicy
 {
     use HandlesAuthorization;
 
@@ -20,19 +20,19 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->hasRole(UserRoleEnum::BaseUser) || $user->hasPermission(UserPermissionsEnum::ViewProducts));
+        
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Manufacture  $manufacture
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Product $product)
+    public function view(User $user, Manufacture $manufacture)
     {
-        return ($user->hasRole(UserRoleEnum::BaseUser) || $user->hasPermission(UserPermissionsEnum::ViewProducts));
+        //
     }
 
     /**
@@ -43,10 +43,9 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return (
-            $user->hasRole(UserRoleEnum::Administrator) || 
-            $user->hasRole(UserRoleEnum::SuperAdministrator) ||
-            $user->hasPermission(UserPermissionsEnum::CreateProducts)
+        return ($user->hasRole(UserRoleEnum::Administrator) || 
+            $user->hasRole(UserRoleEnum::SuperAdministrator) || 
+            $user->hasPermission(UserPermissionsEnum::CreateManufactures)
         );
     }
 
@@ -54,15 +53,14 @@ class ProductPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Manufacture  $manufacture
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Product $product)
+    public function update(User $user, Manufacture $manufacture)
     {
-        return (
-            $user->hasRole(UserRoleEnum::Administrator) || 
-            $user->hasRole(UserRoleEnum::SuperAdministrator) ||
-            $user->hasPermission(UserPermissionsEnum::EditProducts)
+        return ($user->hasRole(UserRoleEnum::Administrator) || 
+            $user->hasRole(UserRoleEnum::SuperAdministrator) || 
+            $user->hasPermission(UserPermissionsEnum::EditManufactures)
         );
     }
 
@@ -70,15 +68,14 @@ class ProductPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Manufacture  $manufacture
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user, Manufacture $manufacture)
     {
-        return (
-            $user->hasRole(UserRoleEnum::Administrator) || 
-            $user->hasRole(UserRoleEnum::SuperAdministrator) ||
-            $user->hasPermission(UserPermissionsEnum::DeleteProducts)
+        return ($user->hasRole(UserRoleEnum::Administrator) || 
+            $user->hasRole(UserRoleEnum::SuperAdministrator) || 
+            $user->hasPermission(UserPermissionsEnum::DeleteManufactures)
         );
     }
 
@@ -86,10 +83,10 @@ class ProductPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Manufacture  $manufacture
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user, Manufacture $manufacture)
     {
         //
     }
@@ -98,10 +95,10 @@ class ProductPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Manufacture  $manufacture
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user, Manufacture $manufacture)
     {
         //
     }
