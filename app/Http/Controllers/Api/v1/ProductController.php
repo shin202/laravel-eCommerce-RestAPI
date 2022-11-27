@@ -49,6 +49,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        // $this->authorize('create');
+
         $product = $this->product->create($this->filterRequest($request));
 
         // Assign product's data.
@@ -90,6 +92,8 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize('update', $product);
+
         $product = $this->product->findOrFail($product->id);
 
         $validated = $request->validated();
@@ -121,6 +125,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
+
         $this->product->findOrFail($product->id)->deleteOrFail();
         
         $responseData = null;
@@ -133,5 +139,16 @@ class ProductController extends Controller
         $filteredRequest = $request->safe()->except($this->exceptRequest);
 
         return $filteredRequest;
+    }
+
+    public function search($name) {
+        $data = [
+            'status' => 'success',
+            'message' => 'Lấy danh sách sản phẩm thành công có tên là: '.$name,
+        ];
+
+        $products = $this->product->where('name', 'like', '%'.$name.'%')->paginate(10);
+
+        return (new ProductCollection($products))->additional($data)->response();
     }
 }

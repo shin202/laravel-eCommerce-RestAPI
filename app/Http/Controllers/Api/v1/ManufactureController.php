@@ -36,7 +36,7 @@ class ManufactureController extends Controller
             'message' => 'Lấy thành công danh sách nhà sản xuất.',
         ];
 
-        return (new ManufactureCollection($this->manufacture->paginate(10)))->additional($data);
+        return (new ManufactureCollection($this->manufacture->paginate(10)))->additional($data)->response();
     }
 
     /**
@@ -47,6 +47,8 @@ class ManufactureController extends Controller
      */
     public function store(StoreManufactureRequest $request)
     {
+        $this->authorize('create');
+
         $validated = $request->validated();
         $manufacture = $this->manufacture->create($request->safe()->except('logo'));
         $logo = $this->imageService->handleUploadedImage($validated['logo'], 'manufacture', $validated['slug']);
@@ -81,6 +83,8 @@ class ManufactureController extends Controller
      */
     public function update(UpdateManufactureRequest $request, Manufacture $manufacture)
     {
+        $this->authorize('update', $manufacture);
+
         $validated = $request->validated();
         $manufacture = $this->manufacture->findOrFail($manufacture->id);
         
@@ -106,11 +110,24 @@ class ManufactureController extends Controller
      */
     public function destroy(Manufacture $manufacture)
     {
+        $this->authorize('delete', $manufacture);
+
         $this->manufacture->findOrFail($manufacture->id)->deleteOrFail();
 
         $responseData = null;
         $message = 'Xóa nhà sản xuất thành công.';
 
         return $this->successReponse($responseData, $message);
+    }
+
+    public function search($name) {
+        $data = [
+            'status' => 'success',
+            'message' => 'Lấy thành công danh sách nhà sản xuất có tên là: '.$name,
+        ];
+
+        $manufactures = $this->manufacture->where('name', 'like', '%'.$name.'%')->paginate(10);
+
+        return (new ManufactureCollection($manufactures))->additional($data)->response();
     }
 }

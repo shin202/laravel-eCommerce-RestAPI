@@ -7,6 +7,7 @@ use App\Http\Requests\Image\StoreImageRequest;
 use App\Models\Image;
 use App\Models\Manufacture;
 use App\Models\Product;
+use App\Models\User;
 use App\Traits\ApiResponser;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
@@ -19,13 +20,15 @@ class ImageController extends Controller
     protected $imageService;
     protected $product;
     protected $manufacture;
+    protected $user;
 
-    public function __construct(Image $image, ImageService $imageService, Product $product, Manufacture $manufacture)
+    public function __construct(Image $image, ImageService $imageService, Product $product, Manufacture $manufacture, User $user)
     {
         $this->image = $image;
         $this->imageService = $imageService;
         $this->product = $product;
         $this->manufacture = $manufacture;
+        $this->user = $user;
     }
 
     /**
@@ -50,7 +53,7 @@ class ImageController extends Controller
     public function store(StoreImageRequest $request)
     {
         $validated = $request->validated();
-        $slug = '';
+        $slug = 'anonymous';
 
         switch ($validated['imageable_type']) {
             case 'product':
@@ -61,6 +64,11 @@ class ImageController extends Controller
             case 'manufacture':
                 $manufacture = $this->manufacture->findOrFail($validated['imageable_id']);
                 $slug = $manufacture->slug;
+                break;
+            
+            case 'user':
+                $user = $this->user->findOrFail($validated['imageable_id']);
+                $slug = $user->username;
                 break;
             
             default:

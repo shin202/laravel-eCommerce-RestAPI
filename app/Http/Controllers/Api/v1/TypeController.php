@@ -18,7 +18,7 @@ class TypeController extends Controller
 
     public function __construct(Type $type)
     {
-        $this->type = $type;
+        $this->type = $type->with(['sizes']);
     }
 
     /**

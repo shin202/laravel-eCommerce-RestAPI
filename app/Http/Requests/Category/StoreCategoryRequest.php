@@ -35,8 +35,25 @@ class StoreCategoryRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
+                'regex:/^[\w\d]+(?:-[\w\d]+)*$/',
                 Rule::unique(Category::class),
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name' => [
+                'required' => 'Vui lòng điền tên danh mục sản phẩm.',
+                'string' => 'Tên danh mục không hợp lệ.',
+            ],
+            'slug' => [
+                'required' => 'Vui lòng điền đường dẫn sản phẩm.',
+                'string' => 'Đường dẫn không hợp lệ.',
+                'regex' => 'Đường dẫn không hợp lệ. Ex: Đường dẫn hợp lệ: test-slug',
+                'unique' => 'Tên đường dẫn này đã tồn tại. Vui lòng chọn tên khác.',
+            ]
         ];
     }
 }

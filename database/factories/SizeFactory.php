@@ -14,7 +14,7 @@ class SizeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->numberBetween(25, 50),
+            'name' => $this->faker->unique()->name(),
         ];
     }
 }

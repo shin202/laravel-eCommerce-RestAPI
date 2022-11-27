@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Policies\AuthAdminPolicy;
+use App\Policies\ProductPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Product::class => ProductPolicy::class,
     ];
 
     /**
@@ -25,15 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        /** @var CachesRoutes $app */
-        $app = $this->app;
-        if (!$app->routesAreCached()) {
-            Passport::routes();
-        }
-
-        Passport::tokensExpireIn(now()->addMinutes(5));
-        Passport::refreshTokensExpireIn(now()->addMonths(1));
-        Passport::personalAccessTokensExpireIn(now()->addMinutes(5));
+        Gate::define('admin-register', [AuthAdminPolicy::class, 'adminRegister']);
     }
 }
