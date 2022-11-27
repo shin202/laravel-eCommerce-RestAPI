@@ -19,7 +19,7 @@ class CreateManufacturesTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
-            $table->string('information')->nullable();
+            $table->text('information')->nullable();
             $table->string('slug')->nullable()->index()->unique();
             $table->timestamps();
         });

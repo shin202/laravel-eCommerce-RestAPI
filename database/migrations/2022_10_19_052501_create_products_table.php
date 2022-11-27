@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('manufacture_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->bigInteger('stock')->nullable()->default(0);
             $table->decimal('price', 10, 2);
             $table->string('slug')->nullable()->index()->unique();
