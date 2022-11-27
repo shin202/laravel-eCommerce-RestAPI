@@ -75,7 +75,7 @@ class UpdateProductRequest extends FormRequest
                 'file',
                 'image',
             ],
-            'quantity' => [
+            'stock' => [
                 'bail',
                 'nullable',
                 'numeric',
@@ -99,7 +99,7 @@ class UpdateProductRequest extends FormRequest
             ],
             'types.*' => [
                 'required',
-                Rule::exists(Type::class),
+                Rule::exists(Type::class, 'id'),
             ],
             'sizes' => [
                 'required',
@@ -107,7 +107,7 @@ class UpdateProductRequest extends FormRequest
             ],
             'sizes.*' => [
                 'required',
-                Rule::exists(Size::class),
+                Rule::exists(Size::class, 'id'),
             ],
             'categories' => [
                 'required',
@@ -115,7 +115,7 @@ class UpdateProductRequest extends FormRequest
             ],
             'categories.*' => [
                 'required',
-                Rule::exists(Category::class),
+                Rule::exists(Category::class, 'id'),
             ],
             'colors' => [
                 'bail',
@@ -125,8 +125,23 @@ class UpdateProductRequest extends FormRequest
             'colors.*' => [
                 'bail',
                 'required',
-                Rule::exists(Color::class),
+                Rule::exists(Color::class, 'id'),
             ],
+            'newImages' => [
+                'array' => 'Ảnh sản phẩm không hợp lệ (phải bao gồm một danh sách các ảnh).',
+            ],
+            'newImages.*' => [
+                'required' => 'Vui lòng chọn ảnh sản phẩm cần tải lên.',
+                'file' => 'Ảnh của sản phẩm phải là file.',
+                'image' => 'File đã chọn không hợp lệ.',
+            ],
+            'oldImages' => [
+                'array' => 'Ảnh sản phẩm cần xóa không hợp lệ (phải bao gồm một danh sách các ảnh).',
+            ],
+            'oldImages.*' => [
+                'required' => 'Vui lòng chọn ảnh sản phẩm cần xóa.',
+                'exists' => 'Ảnh đã chọn không tồn tại hoặc đã bị xóa.',
+            ]
         ];
     }
 }

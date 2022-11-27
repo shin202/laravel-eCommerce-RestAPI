@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Product;
 
-use App\Models\Size;
+use App\Models\Color;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateSizeRequest extends FormRequest
+class UpdateColorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class UpdateSizeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,11 +26,11 @@ class UpdateSizeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'color' => [
                 'bail',
                 'required',
-                'string',
-                Rule::unique(Size::class)->ignore($this->name),
+                'regex:/^#([\w\d]{6})$/',
+                Rule::unique(Color::class)->ignore($this->color),
             ],
         ];
     }
@@ -38,10 +38,10 @@ class UpdateSizeRequest extends FormRequest
     public function messages()
     {
         return [
-            'name' => [
-                'required' => 'Vui lòng điền size sản phẩm.',
-                'string' => 'Size sản phẩm không hợp lệ.',
-                'unique' => 'Size sản phẩm này đã tồn tại.'
+            'color' => [
+                'required' => 'Vui lòng chọn màu sản phẩm.',
+                'regex' => 'Màu được chọn không hợp lệ.',
+                'unique' => 'Màu này đã tồn tại. Vui lòng chọn một màu khác.',
             ]
         ];
     }
