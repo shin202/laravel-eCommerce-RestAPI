@@ -7,10 +7,18 @@ use App\Enums\UserRoleEnum;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
 {
     use HandlesAuthorization;
+
+    protected $message;
+
+    public function __construct()
+    {
+        $this->message = 'Quyền truy cập bị từ chối. Nếu đây là sự cố, vui lòng liên hệ với chủ sở hữu để được hỗ trợ.';
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -104,5 +112,13 @@ class ProductPolicy
     public function forceDelete(User $user, Product $product)
     {
         //
+    }
+
+    public function manageImage(User $user, Product $product) {
+        return (
+            $user->hasRole(UserRoleEnum::Administrator) || 
+            $user->hasRole(UserRoleEnum::SuperAdministrator) ||
+            $user->hasPermission(UserPermissionsEnum::EditProducts)
+        ) ? Response::allow() : Response::deny($this->message);
     }
 }
