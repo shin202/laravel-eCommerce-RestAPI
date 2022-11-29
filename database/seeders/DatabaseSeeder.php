@@ -661,5 +661,20 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+
+        DB::table('admins')->insert([
+            'user_id' => 1,
+            'name' => 'Trần Việt Hoàng',
+            'phone_number' => '0388784731',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('role_user')->insert([
+            'user_id' => 1,
+            'role_id' => 4,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
