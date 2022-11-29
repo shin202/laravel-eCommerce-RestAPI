@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\v1\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\AuthUserResource;
+use App\Http\Resources\BaseUserResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\ImageService;
@@ -54,11 +55,11 @@ class AuthController extends Controller
             $user->avatar()->create($anonymousAvatar);
         }
 
+        $userData = $user->load(['roles']);
         $accessToken = $user->createToken('accessToken')->plainTextToken;
-
         $message = 'Đăng ký thành công.';
 
-        return $this->responseWithAccessToken(new UserResource($user), $accessToken, $message, 201);
+        return $this->responseWithAccessToken(new BaseUserResource($userData), $accessToken, $message, 201);
     }
 
     public function login(AuthLoginRequest $request) {
@@ -69,12 +70,12 @@ class AuthController extends Controller
             return $this->userWrongCredentialsResponse($message);
         }
 
-        $user = Auth::user()->load(['roles']);
+        $user = Auth::user()->load(['roles', 'admin']);
         $accessToken = $user->createToken('accessToken')->plainTextToken;
 
         $message = 'Đăng nhập thành công.';
 
-        return $this->responseWithAccessToken(new UserResource($user), $accessToken, $message);
+        return $this->responseWithAccessToken(new AuthUserResource($user), $accessToken, $message);
     }
 
     public function logout() {

@@ -6,7 +6,7 @@ use App\Enums\UserRoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthAdminRegisterRequest;
 use App\Http\Requests\Auth\AuthLoginRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\AuthUserResource;
 use App\Models\Admin;
 use App\Models\Role;
 use App\Models\User;
@@ -41,7 +41,7 @@ class AuthController extends Controller
             return $this->userWrongCredentialsResponse($message);
         }
 
-        $user = Auth::user()->load(['roles']);
+        $user = Auth::user()->load(['roles', 'admin']);
         $administratorRole = $user->hasRole(UserRoleEnum::Administrator) || $user->hasRole(UserRoleEnum::SuperAdministrator);
 
         if (!$administratorRole) {
@@ -52,7 +52,7 @@ class AuthController extends Controller
         
         $message = 'Đăng nhập thành công với tư cách quản trị viên.';
 
-        return $this->responseWithAccessToken(new UserResource($user), $accessToken, $message);
+        return $this->responseWithAccessToken(new AuthUserResource($user), $accessToken, $message);
     }
 
     public function register(AuthAdminRegisterRequest $request) {
@@ -83,10 +83,10 @@ class AuthController extends Controller
             $user->avatar()->create($anonymousAvatar);
         }
 
+        $userData = $user->load(['roles', 'admin']);
         $accessToken = $user->createToken('accessToken')->plainTextToken;
-
         $message = 'Đăng ký thành công.';
 
-        return $this->responseWithAccessToken(new UserResource($user), $accessToken, $message);
+        return $this->responseWithAccessToken(new AuthUserResource($userData), $accessToken, $message);
     }
 }
