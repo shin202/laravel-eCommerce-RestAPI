@@ -38,11 +38,9 @@ class StoreColorRequest extends FormRequest
     public function messages()
     {
         return [
-            'color' => [
-                'required' => 'Vui lòng chọn màu sản phẩm.',
-                'regex' => 'Màu được chọn không hợp lệ.',
-                'unique' => 'Màu này đã tồn tại. Vui lòng chọn một màu khác.',
-            ]
+            'color.required' => 'Vui lòng chọn màu sản phẩm.',
+            'color.regex' => 'Màu được chọn không hợp lệ.',
+            'color.unique' => 'Màu này đã tồn tại. Vui lòng chọn một màu khác.',
         ];
     }
 }

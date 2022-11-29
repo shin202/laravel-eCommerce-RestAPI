@@ -38,11 +38,9 @@ class UpdateSizeRequest extends FormRequest
     public function messages()
     {
         return [
-            'name' => [
-                'required' => 'Vui lòng điền size sản phẩm.',
-                'string' => 'Size sản phẩm không hợp lệ.',
-                'unique' => 'Size sản phẩm này đã tồn tại.'
-            ]
+            'name.required' => 'Vui lòng điền size sản phẩm.',
+            'name.string' => 'Size sản phẩm không hợp lệ.',
+            'name.unique' => 'Size sản phẩm này đã tồn tại.'
         ];
     }
 }

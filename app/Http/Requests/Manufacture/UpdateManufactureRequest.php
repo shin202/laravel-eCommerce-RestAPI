@@ -73,38 +73,24 @@ class UpdateManufactureRequest extends FormRequest
     public function messages()
     {
         return [
-            'name' => [
-                'required' => 'Vui lòng điền tên nhà sản xuất.',
-                'string' => 'Tên nhà sản xuất không hợp lệ.',
-            ],
-            'newLogo' => [
-                'image' => 'File được chọn không hợp lệ.',
-                'file' => 'Ảnh logo phải là file.',
-            ],
-            'address' => [
-                'string' => 'Địa chỉ nhà sản xuất không hợp lệ.',
-            ],
-            'phone_number' => [
-                'required' => 'Vui lòng nhập số điện thoại nhà sản xuất.',
-                'regex' => 'Số điện thoại đã nhập không hợp lệ.',
-                'unique' => 'Số điện thoại này đã tồn tại.',
-                'string' => 'Số điện thoại không hợp lệ.',
-            ],
-            'email' => [
-                'required' => 'Vui lòng điền email nhà sản xuất.',
-                'email' => 'Địa chỉ email không hợp lệ.',
-                'regex' => 'Địa chỉ email không hợp lệ.',
-                'unique' => 'Địa chỉ email này đã tồn tại.',
-            ],
-            'information' => [
-                'string' => 'Thông tin nhà sản xuất không hợp lệ.',
-            ],
-            'slug' => [
-                'required' => 'Vui lòng nhập đường dẫn nhà sản xuất.',
-                'string' => 'Đường dẫn không hợp lệ.',
-                'regex' => 'Đường dẫn không hợp lệ. Ex: Đường dẫn hợp lệ: test-slug',
-                'unique' => 'Đường dẫn này đã tồn tại.',
-            ],
+            'name.required' => 'Vui lòng điền tên nhà sản xuất.',
+            'name.string' => 'Tên nhà sản xuất không hợp lệ.',
+            'newLogo.image' => 'File được chọn không hợp lệ.',
+            'newLogo.file' => 'Ảnh logo phải là file.',
+            'address.string' => 'Địa chỉ nhà sản xuất không hợp lệ.',
+            'phone_number.required' => 'Vui lòng nhập số điện thoại nhà sản xuất.',
+            'phone_number.regex' => 'Số điện thoại đã nhập không hợp lệ.',
+            'phone_number.unique' => 'Số điện thoại này đã tồn tại.',
+            'phone_number.string' => 'Số điện thoại không hợp lệ.',
+            'email.required' => 'Vui lòng điền email nhà sản xuất.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'email.regex' => 'Địa chỉ email không hợp lệ.',
+            'email.unique' => 'Địa chỉ email này đã tồn tại.',
+            'information.string' => 'Thông tin nhà sản xuất không hợp lệ.',
+            'slug.required' => 'Vui lòng nhập đường dẫn nhà sản xuất.',
+            'slug.string' => 'Đường dẫn không hợp lệ.',
+            'slug.regex' => 'Đường dẫn không hợp lệ. Ex: Đường dẫn hợp lệ: test-slug',
+            'slug.unique' => 'Đường dẫn này đã tồn tại.',
         ];
     }
 }

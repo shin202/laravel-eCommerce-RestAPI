@@ -47,19 +47,13 @@ class StoreImageRequest extends FormRequest
     public function messages()
     {
         return [
-            'image' => [
-                'required' => 'Vui lòng chọn ảnh cần tải lên.',
-                'file' => 'Ảnh phải là file.',
-                'image' => 'File được chọn không hợp lệ.',
-            ],
-            'imageable_type' => [
-                'required' => 'Vui lòng chọn loại ảnh cần tải lên.',
-                'in' => 'Loại ảnh phải thuộc một trong các loại sau :values',
-            ],
-            'imageable_id' => [
-                'required' => 'Vui lòng chọn sản phẩm (nhà sản xuất, hoặc người dùng) cần thêm ảnh.',
-                'poly_exists' => 'Sản phẩm, nhà sản xuất hoặc người dùng này không tồn tại.',
-            ],
+            'image.required' => 'Vui lòng chọn ảnh cần tải lên.',
+            'image.file' => 'Ảnh phải là file.',
+            'image.image' => 'File được chọn không hợp lệ.',
+            'imageable_type.required' => 'Vui lòng chọn loại ảnh cần tải lên.',
+            'imageable_type.in' => 'Loại ảnh phải thuộc một trong các loại sau :values',
+            'imageable_id.required' => 'Vui lòng chọn sản phẩm (nhà sản xuất, hoặc người dùng) cần thêm ảnh.',
+            'imageable_id.poly_exists' => 'Sản phẩm, nhà sản xuất hoặc người dùng này không tồn tại.',
         ];
     }
 }
