@@ -73,38 +73,26 @@ class AuthAdminRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'username' => [
-                'required' => 'Vui lòng điền tên người dùng.',
-                'string' => 'Tên người dùng không hợp lệ.',
-                'min' => 'Tên người dùng tối thiểu :min ký tự.',
-                'max' => 'Tên người dùng tối đa :max ký tự.',
-                'unique' => 'Tên người dùng này đã tồn tại. Vui lòng chọn một tên khác.',
-            ],
-            'email' => [
-                'required' => 'Vui lòng điền email.',
-                'email' => 'Địa chỉ email không hợp lệ.',
-                'regex' => 'Địa chỉ email không hợp lệ.',
-                'unique' => 'Đại chỉ email này đã tồn tại.',
-            ],
-            'password' => [
-                'required' => 'Vui lòng điền mật khẩu.',
-                'min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
-                'max' => 'Mật khẩu tối đa :max ký tự.',
-                'regex' => 'Mật khẩu phải chứa từ :min - :max ký tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.', 
-                'confirmed' => 'Vui lòng xác nhận mật khẩu.',
-            ],
-            'name' => [
-                'required' => 'Vui lòng điền tên.',
-                'string' => 'Tên không hợp lệ.',
-            ],
-            'phone_number' => [
-                'required' => 'Vui lòng điền số điện thoại.',
-                'unique' => 'Số điện thoại này đã tồn tại.',
-            ],
-            'avatar' => [
-                'file' => 'Avatar phải là file.',
-                'image' => 'Avatar phải là ảnh.',
-            ]
+            'username.required' => 'Vui lòng điền tên người dùng.',
+            'username.string' => 'Tên người dùng không hợp lệ.',
+            'username.min' => 'Tên người dùng tối thiểu :min ký tự.',
+            'username.max' => 'Tên người dùng tối đa :max ký tự.',
+            'username.unique' => 'Tên người dùng này đã tồn tại. Vui lòng chọn một tên khác.',
+            'email.required' => 'Vui lòng điền email.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'email.regex' => 'Địa chỉ email không hợp lệ.',
+            'email.unique' => 'Đại chỉ email này đã tồn tại.',
+            'password.required' => 'Vui lòng điền mật khẩu.',
+            'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
+            'password.max' => 'Mật khẩu tối đa :max ký tự.',
+            'password.regex' => 'Mật khẩu phải chứa từ :min - :max ký tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.', 
+            'password.confirmed' => 'Vui lòng xác nhận mật khẩu.',
+            'name.required' => 'Vui lòng điền tên.',
+            'name.string' => 'Tên không hợp lệ.',
+            'phone_number.required' => 'Vui lòng điền số điện thoại.',
+            'phone_number.unique' => 'Số điện thoại này đã tồn tại.',
+            'avatar.file' => 'Avatar phải là file.',
+            'avatar.image' => 'Avatar phải là ảnh.',
         ];
     }
 }

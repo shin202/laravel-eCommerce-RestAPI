@@ -43,17 +43,13 @@ class AuthLoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email' => [
-                'required' => 'Vui lòng điền email.',
-                'email' => 'Địa chỉ email không hợp lệ.',
-                'regex' => 'Địa chỉ email không hợp lệ.',
-            ],
-            'password' => [
-                'required' => 'Vui lòng điền mật khẩu.',
-                'min' => 'Mật khẩu phải chứa ít nhất :min ký tự',
-                'max' => 'Mật khẩu tối đa :max ký tự',
-                'regex' => 'Mật khẩu phải chứa từ :min - :max ký tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.',
-            ]
+            'email.required' => 'Vui lòng điền email.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'email.regex' => 'Địa chỉ email không hợp lệ.',
+            'password.required' => 'Vui lòng điền mật khẩu.',
+            'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự',
+            'password.max' => 'Mật khẩu tối đa :max ký tự',
+            'password.regex' => 'Mật khẩu phải chứa từ :min - :max ký tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.',
         ];
     }
 }
