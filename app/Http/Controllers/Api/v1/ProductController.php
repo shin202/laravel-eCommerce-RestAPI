@@ -6,6 +6,9 @@ use App\Models\Product;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\DeleteProductImageRequest;
+use App\Http\Requests\Product\StoreProductImageRequest;
+use App\Http\Resources\Image\ImageResource;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Traits\ApiResponser;
@@ -49,7 +52,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // $this->authorize('create');
+        $this->authorize('create');
 
         $product = $this->product->create($this->filterRequest($request));
 
@@ -102,13 +105,6 @@ class ProductController extends Controller
         $product->sizes()->sync($validated['sizes']);
         $product->colors()->sync($validated['colors']);
 
-        $request->has('oldImages') && $product->images()->whereIn('id', $validated['oldImages'])->delete();
-
-        if ($request->has('newImages')) {
-            $images = $this->productService->handleUploadedImage($validated['newImages'], $validated['slug']);
-            $product->images()->createMany($images);
-        }
-
         $product->updateOrFail($this->filterRequest($request));
 
         $responseData = null;
@@ -150,5 +146,33 @@ class ProductController extends Controller
         $products = $this->product->where('name', 'like', '%'.$name.'%')->paginate(10);
 
         return (new ProductCollection($products))->additional($data)->response();
+    }
+
+    public function addImage(StoreProductImageRequest $request, Product $product) {
+        $this->authorize('manageImage', $product);
+
+        $validated = $request->validated();
+        $product = $this->product->findOrFail($product->id);
+        $images = $this->productService->handleUploadedImage($validated['images'], $product->slug);
+        $product->images()->createMany($images);
+        $result = $product->images;
+
+        $responseData = ImageResource::collection($result);
+        $message = 'Thêm ảnh sản phẩm thành công.';
+
+        return $this->successCreatedResponse($responseData, $message);
+    }
+
+    public function deleteImage(DeleteProductImageRequest $request, Product $product) {
+        $this->authorize('manageImage', $product);
+
+        $validated = $request->validated();
+        $product = $this->product->findOrFail($product->id);
+        $product->images()->whereIn('id', $validated['images'])->delete();
+
+        $responseData = null;
+        $message = 'Xóa thành công ảnh sản phẩm.';
+
+        return $this->successReponse($responseData, $message);
     }
 }
